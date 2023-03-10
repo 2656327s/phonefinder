@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+{% load staticfiles %}
+
+{% load app_template_tags %}
+
+<!-- header setup -->
+    
+<html>
+    
+    <head>
+        
+        <title>
+                PhoneFinder - 
+                {% block title_block %}
+                    Register
+                {% endblock %}
+        </title>
+    </head>
+
+<body>
+
+<!-- stylesheet link -->
+
+<link rel="stylesheet" href="{% static 'css/page.css' %}">
+
+<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+
+<html>
+
+
+<!-- background image -->
+
+<style>
+	body {
+	  background-image: url("{% static '/images/register/lefthero.png' %}");
+	  background-repeat: no-repeat;
+	  background-attachment: fixed;
+	  background-size: cover;
+
+	}
+	</style>
+<div></div>
+
+<!-- main section -->
+
+<div class="p-5">
+
+<br></br>
+
+<body>
+	<strong><h1>REGISTER</h1></strong>
+
+	<div>
+		Fill in the registration form below to create your phone finder account. 
+	</div>
+
+</body>
+</br>
+
+<!-- form section -->
+
+<form>
+	<div class="form-group">
+	  <label for="exampleInputEmail1 ">Username</label>
+	  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+	  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+	</div>
+	<div class="form-group">
+	  <label for="exampleInputPassword1">Password</label>
+	  <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+	</div>
+	<button type="submit" class="btn btn-primary">Login</button>
+
+  </form>
+
+</br>
+  <body>
+	<div>
+		Already have a phone finder account? <a href="/phonefinder/">Login</a> now!<br/> 
+	</div>
+
+</body>
+
+</div>
+</div>
+
+
+
+</html>

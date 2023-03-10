@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+{% extends 'app/base.html' %}
+{% load staticfiles %}
+<html>
+
+{% block title_block %}
+	Leave a review
+{% endblock %}
+
+{% block body_block %}
+
+
+<!-- Jumbotron -->
+
+<header>
+	
+	<br>
+	<br>
+	
+	<div class="p-5 text bg-info">
+        <h1><strong style="color:white"> LEAVE A REVIEW </strong></h1>
+	</div>
+</header>
+
+
+<div class="container-fluid">
+<br></br>
+
+
+
+<!------------Welcome Section------------>
+
+<div class="p-5">
+
+
+<body>
+	<strong><h1> RATE YOUR MODEL </h1></strong>
+
+	<div>
+
+		<p style= font-weight:100>
+			Fill out the form below and we'll do the rest.
+		<p>
+		
+				
+	</div>
+
+	<form>
+
+		  <div class="form-group">
+			<label for="inputEmail4">Rating</label>
+			<input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+		  </div>
+
+		  <div class="form-row">
+			<label for="inputAddress">Model</label>
+			<input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+		  </div>
+
+		  <div class="form-row">
+			<label for="inputAddress">Title</label>
+			<input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+		  </div>
+
+		  <div class="form-row">
+			<label for="inputPassword4">Comments</label>
+			<textarea class="form-control" id="inputComments" placeholder="Your review" rows="5"></textarea>
+		  </div>
+
+		  <br>
+
+		<button type="submit" class="btn btn-primary">Leave your review</button>
+	  </form>
+
+
+	
+</div>
+
+
+{% endblock body_block %}
+
+
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+{% extends 'app/base.html' %}
+{% load staticfiles %}
+<html>
+
+{% block title_block %}
+	Your favourites
+{% endblock %}
+
+{% block body_block %}
+
+
+<!-- Jumbotron -->
+
+<header>
+	
+	<br>
+	<br>
+	
+	<div class="p-5 text bg-info">
+        <h1><strong style="color:white"> YOUR FAVOURITES </strong></h1>
+	</div>
+</header>
+
+<!-- Background image -->
+<style>
+	body {
+	  background-image: url("{% static '/images/about/lefthero.png' %}");
+	  background-repeat: no-repeat;
+	  background-attachment: fixed;
+	  background-size: cover;
+
+	}
+	</style>
+<div></div>
+<!-- Background image -->
+
+<div class="container-fluid">
+<br></br>
+
+
+
+<!------------Welcome Section------------>
+
+<div class="p-5">
+
+
+<body>
+	<strong><h1> YOUR FAVOURITES</h1></strong>
+
+	<div>
+
+		<p style= font-weight:100>
+			Your top 3 favourites!
+		<p>
+		
+				
+	</div>
+
+
+	
+</div>
+
+
+{% endblock body_block %}
+
+
+</html>

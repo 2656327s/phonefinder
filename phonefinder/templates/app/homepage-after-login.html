@@ -1,0 +1,102 @@
+{% extends 'app/base.html' %}
+{% load staticfiles %}
+
+
+{% block title_block %}
+Homepage
+{% endblock %}
+
+    
+{% block body_block %}
+
+<!-- Jumbotron -->
+
+<header>
+	
+	<br>
+	<br>
+	
+	<div class="p-5 text bg-info">
+        <h1><strong style="color:white"> PHONEFINDER </strong></h1>
+	</div>
+
+</header>
+
+    
+<!------------Welcome Section------------>
+
+<div class="p-5">
+
+    <body>
+        <h1><strong>WELCOME TO PHONEFINDER!</strong></h1>
+    
+        <div>
+    
+            <p style= font-weight:100>
+                PhoneFinder is the best place to get the best suggestions for a Phone, based on your needs. Simply complete our quick and easy form and we'll suggest a couple of options to suit you.  Like what you see, simply save them to your favourites for reference. You can also find links to purchase from our partners
+            <p>
+            
+                    
+        </div>
+    
+        <br> 
+    
+    <div class="card-deck">
+
+      <div class="card">
+        <img class="card-img-top" src="{% static '/images/homepage/search.png' %}" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Find your perfect phone</h5>
+          <p class="card-text">Use our search feature to help you find the perfect phone!</p>
+          <a class="btn btn-info" href="#" role="button">Find your Phone!</a>
+
+        </div>
+      </div>
+
+      <div class="card">
+        <img class="card-img-top" src="{% static '/images/homepage/favourites.png' %}" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Your Favourites</h5>
+          <p class="card-text">Found the perfect phone, save it to your favourites!</p>
+          <a class="btn btn-info" href="#" role="button">Add now...buy later!</a>
+
+        </div>
+     </div>
+
+      <div class="card">
+        <img class="card-img-top" src="{% static '/images/homepage/phone.png' %}" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">All our Phones</h5>
+          <p class="card-text">Want to find out more about all our phones? Browse our full database and filter by your choices!</p>
+          <a class="btn btn-info" href="#" role="button"> Browse our phones!</a>
+
+        </div>
+      </div>
+
+      <div class="card">
+        <img class="card-img-top" src="{% static '/images/homepage/review.png' %}" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Leave a Review</h5>
+          <p class="card-text">Help inform our users!</p>
+          <a class="btn btn-info" href="#" role="button">Leave your thoughts!</a>
+        
+
+        </div>
+    
+      </div>
+      <div class="card">
+        <img class="card-img-top" src="{% static '/images/homepage/search.png' %}" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+        </div>
+      </div>
+    </div>
+    
+    </body>
+    </br>
+    </div>
+       
+
+
+{% endblock %}
