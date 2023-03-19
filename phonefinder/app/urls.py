@@ -12,4 +12,5 @@ path('find/', views.find, name='find'),
 path('favourites/', views.favourites, name='favourites'),
 path('database/', views.database, name='database'),
 path('review/', views.review, name='review'),
+path('submit_review/', views.submit_review, name='submit_review'),
 ]

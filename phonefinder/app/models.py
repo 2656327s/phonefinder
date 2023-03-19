@@ -9,3 +9,13 @@ class UserProfile(models.Model):
     
     def __str__(self):
         return self.user.username
+
+
+class Review(models.Model):
+    rating = models.IntegerField()
+    model = models.CharField(max_length=100)
+    title = models.CharField(max_length=100)
+    comments = models.TextField()
+
+    def __str__(self):
+        return self.title

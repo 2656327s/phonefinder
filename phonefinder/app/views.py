@@ -1,16 +1,16 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from app.forms import UserForm, UserProfileForm
+from app.models import Review
 from django.contrib.auth import authenticate, login
 from django.urls import reverse
 
 
 def index(request):
-
     return render(request, 'app/index.html')
 
+
 def register(request):
-   
     registered = False
 
     if request.method == 'POST':
@@ -44,9 +44,7 @@ def register(request):
                   context={'user_form': user_form, 'profile_form': profile_form, 'registered': registered})
 
 
-
 def homepageafterlogin(request):
-    
     if request.method == 'POST':
 
         username = request.POST.get('username')
@@ -65,26 +63,40 @@ def homepageafterlogin(request):
             print(f"Invalid login details: {username}, {password}")
             return HttpResponse("Invalid login details supplied.")
     else:
-         
+
         return render(request, 'app/homepage-after-login.html', {})
 
 
-def about(request):
+def submit_review(request):
+    if request.method == 'POST':
+        rating = request.POST['rating']
+        model = request.POST['model']
+        title = request.POST['title']
+        comments = request.POST['comments']
 
+        review = Review(rating=rating, model=model, title=title, comments=comments)
+        review.save()
+
+        return redirect(reverse('app:homepageafterlogin'))
+    else:
+        return HttpResponse('Invalid review')
+
+
+def about(request):
     return render(request, 'app/about.html')
 
-def database(request):
 
+def database(request):
     return render(request, 'app/database.html')
 
 
 def find(request):
-
     return render(request, 'app/find.html')
 
-def favourites(request):
 
+def favourites(request):
     return render(request, 'app/favourites.html')
+
 
 def review(request):
     return render(request, 'app/review.html')

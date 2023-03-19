@@ -39,32 +39,34 @@
 	<div>
 
 		<p style= font-weight:100>
-			Fill out the form below and we'll do the rest.
+			Fill out the form below, and we'll do the rest.
 		<p>
 		
 				
 	</div>
 
-	<form>
+	<form method="POST" action="{% url 'app:submit_review' %}">
 
-		  <div class="form-group">
-			<label for="inputEmail4">Rating</label>
-			<input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+        {% csrf_token %}
+
+        <div class="form-group">
+			<label for="inputRating">Rating</label>
+			<input type="number" name="rating" class="form-control" id="inputRating" placeholder="Rating" min="1" max="5">
 		  </div>
 
 		  <div class="form-row">
-			<label for="inputAddress">Model</label>
-			<input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+			<label for="inputModel">Model</label>
+			<input type="text" name="model" class="form-control" id="inputModel" placeholder="Model">
 		  </div>
 
 		  <div class="form-row">
-			<label for="inputAddress">Title</label>
-			<input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+			<label for="inputTitle">Title</label>
+			<input type="text" name="title" class="form-control" id="inputTitle" placeholder="Title">
 		  </div>
 
 		  <div class="form-row">
-			<label for="inputPassword4">Comments</label>
-			<textarea class="form-control" id="inputComments" placeholder="Your review" rows="5"></textarea>
+			<label for="inputComments">Comments</label>
+			<textarea name="comments" class="form-control" id="inputComments" placeholder="Your review" rows="5"></textarea>
 		  </div>
 
 		  <br>
