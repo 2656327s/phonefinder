@@ -105,7 +105,7 @@ def submit_review(request):
         title = request.POST['title']
         comments = request.POST['comments']
 
-        review = Review(rating=rating, model=model, title=title, comments=comments, user=request.user)
+        review = Review(rating=rating, model=model, title=title, comments=comments, user=request.user.username)
         review.save()
 
         return redirect(reverse('app:homepageafterlogin'))

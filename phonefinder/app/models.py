@@ -21,7 +21,7 @@ class Review(models.Model):
     model = models.CharField(max_length=100)
     title = models.CharField(max_length=100)
     comments = models.TextField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.CharField(max_length=100, default="")
 
     def __str__(self):
         return self.title
