@@ -1,8 +1,11 @@
+from django.core.exceptions import ValidationError
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from app.forms import UserForm, UserProfileForm
-from app.models import Review
+from app.models import Review, Favourite
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.password_validation import validate_password
 from django.urls import reverse
 
 
@@ -18,6 +21,14 @@ def register(request):
         profile_form = UserProfileForm(request.POST)
 
         if user_form.is_valid() and profile_form.is_valid():
+
+            password = user_form.cleaned_data['password']
+
+            try:
+                validate_password(password)
+            except ValidationError as e:
+                error_message = f"Password does not meet the requirements due to the following: {''.join(e.messages)}"
+                return render(request, 'app/register.html', {'error_message': error_message})
 
             user = user_form.save()
 
@@ -44,7 +55,7 @@ def register(request):
                   context={'user_form': user_form, 'profile_form': profile_form, 'registered': registered})
 
 
-def homepageafterlogin(request):
+def user_login(request):
     if request.method == 'POST':
 
         username = request.POST.get('username')
@@ -56,17 +67,37 @@ def homepageafterlogin(request):
             if user.is_active:
 
                 login(request, user)
-                return redirect(reverse('phonefinder:index'))
+                return render(request, 'app/homepage-after-login.html', {})
             else:
-                return HttpResponse("Your PhoneFinder account is disabled.")
+                error_message = "Your account is disabled."
+                return render(request, 'app/index.html', {'error_message': error_message})
         else:
-            print(f"Invalid login details: {username}, {password}")
-            return HttpResponse("Invalid login details supplied.")
+            error_message = "Incorrect credentials. Please try again or register an account."
+            return render(request, 'app/index.html', {'error_message': error_message})
     else:
+        return render(request, 'app/index.html')
 
-        return render(request, 'app/homepage-after-login.html', {})
+
+@login_required
+def homepageafterlogin(request):
+    return render(request, 'app/homepage-after-login.html')
 
 
+@login_required
+def add_favourite(request, phone_id):
+    favourite = Favourite(user=request.user, item=phone_id)
+    favourite.save()
+    return redirect(reverse('app:favourites'))
+
+
+@login_required
+def favourite_list(request):
+    favourites = Favourite.objects.filter(user=request.user)
+    context = {'favourites': favourites}
+    return render(request, 'app/favourites.html', context)
+
+
+@login_required
 def submit_review(request):
     if request.method == 'POST':
         rating = request.POST['rating']
@@ -74,7 +105,7 @@ def submit_review(request):
         title = request.POST['title']
         comments = request.POST['comments']
 
-        review = Review(rating=rating, model=model, title=title, comments=comments)
+        review = Review(rating=rating, model=model, title=title, comments=comments, user=request.user)
         review.save()
 
         return redirect(reverse('app:homepageafterlogin'))
@@ -93,9 +124,11 @@ def database(request):
 def find(request):
     return render(request, 'app/find.html')
 
-
+@login_required
 def favourites(request):
-    return render(request, 'app/favourites.html')
+    favourites = Favourite.objects.filter(user=request.user)
+    context = {'favourites': favourites}
+    return render(request, 'app/favourites.html', context)
 
 
 def review(request):

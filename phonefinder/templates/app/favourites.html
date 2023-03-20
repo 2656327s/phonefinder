@@ -51,9 +51,21 @@
 	<div>
 
 		<p style= font-weight:100>
-			Your top 3 favourites!
+
+        {% if favourites %}
+            Your top 3 favourites!
+            <ul>
+        {% for favourite in favourites %}
+        <li>
+            <a>{{ favourite.item }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>You haven't added any favourites yet.</p>
+    {% endif %}
 		<p>
-		
+
 				
 	</div>
 

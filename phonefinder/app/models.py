@@ -11,11 +11,17 @@ class UserProfile(models.Model):
         return self.user.username
 
 
+class Favourite(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    phone_id = models.CharField(max_length=256)
+
+
 class Review(models.Model):
     rating = models.IntegerField()
     model = models.CharField(max_length=100)
     title = models.CharField(max_length=100)
     comments = models.TextField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.title
