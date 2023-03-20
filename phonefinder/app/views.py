@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from app.forms import UserForm, UserProfileForm
 from app.models import Review, Favourite
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.password_validation import validate_password
 from django.urls import reverse
@@ -77,6 +77,10 @@ def user_login(request):
     else:
         return render(request, 'app/index.html')
 
+@login_required
+def user_logout(request):
+    logout(request)
+    return redirect(reverse('app:index'))
 
 @login_required
 def homepageafterlogin(request):
