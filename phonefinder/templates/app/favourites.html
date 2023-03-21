@@ -22,47 +22,84 @@
 	</div>
 </header>
 
-<!-- Background image -->
-<style>
-	body {
-	  background-image: url("{% static '/images/about/lefthero.png' %}");
-	  background-repeat: no-repeat;
-	  background-attachment: fixed;
-	  background-size: cover;
 
-	}
+<style>
+
+    .card-deck {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .blue-text {
+        color: #2aa9e1;
+    }
+
+    .card {
+        max-width: 250px;
+        margin: 0 auto;
+    }
+
+    .card-body {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .card-footer {
+        margin-top: auto;
+        text-align: center;
+    }
+
 	</style>
 <div></div>
 <!-- Background image -->
 
 <div class="container-fluid">
-<br></br>
 
 
 
-<!------------Welcome Section------------>
+<!------------Card Deck------------>
 
 <div class="p-5">
 
 
 <body>
-	<strong><h1> YOUR FAVOURITES</h1></strong>
 
 	<div>
 
 		<p style= font-weight:100>
 
         {% if favourites %}
-            Your top 3 favourites!
-            <ul>
-        {% for favourite in favourites %}
-        <li>
-            <a href="{% url 'app:show_individual' manufacturer_slug=favourite.brand|slugify model_slug=favourite.name|slugify %}">{{ favourite.name }}</a>
-        </li>
-        {% endfor %}
-    </ul>
+
+            <h2 class="text-center blue-text">Your top 5 favourites!</h2>
+
+            <br>
+
+            <div class="card-deck">
+
+            {% for favourite in favourites %}
+            <div class="card">
+                <img class="card-img-top" src="{{ favourite.picture }}" alt="{{ favourite.name }}">
+                <div class="card-body">
+                    <h5 class="card-title blue-text">{{ favourite.name }}</h5>
+                    <p class="card-text">
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <a class="btn btn-info" href="{% url 'app:show_individual' manufacturer_slug=favourite.brand|slugify model_slug=favourite.name|slugify %}" role="button">View</a>
+                </div>
+            </div>
+            {% endfor %}
+
+            </div>
+
     {% else %}
-    <p>You haven't added any favourites yet.</p>
+    <h2 class="text-center blue-text">You haven't added any favourites yet - Start browsing below!</h2>
+            <br>
+            <div class="text-center">
+        <a class="btn btn-info" href="{% url 'app:find' %}" role="button">Find phones</a>
+    </div>
     {% endif %}
 		<p>
 
