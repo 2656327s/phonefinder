@@ -57,7 +57,7 @@
             <ul>
         {% for favourite in favourites %}
         <li>
-            <a>{{ favourite.item }}</a>
+            <a href="{% url 'app:show_individual' manufacturer_slug=favourite.brand|slugify model_slug=favourite.name|slugify %}">{{ favourite.name }}</a>
         </li>
         {% endfor %}
     </ul>

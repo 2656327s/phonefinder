@@ -1,3 +1,4 @@
+import json
 from django.core.exceptions import ValidationError
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
@@ -7,6 +8,11 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.password_validation import validate_password
 from django.urls import reverse
+from django.utils.text import slugify
+
+
+with open('phones.json', 'r') as file:
+    phones = json.load(file)
 
 
 def index(request):
@@ -24,6 +30,8 @@ def register(request):
 
             password = user_form.cleaned_data['password']
 
+            # validata password meets requirements, if not display error message
+            # directly from ValidationError
             try:
                 validate_password(password)
             except ValidationError as e:
@@ -66,12 +74,15 @@ def user_login(request):
         if user:
             if user.is_active:
 
+                # log in and render the homepage if user exists and is active
                 login(request, user)
                 return render(request, 'app/homepage-after-login.html', {})
             else:
+                # if user exists but isn't active, display error message
                 error_message = "Your account is disabled."
                 return render(request, 'app/index.html', {'error_message': error_message})
         else:
+            # if user doesn't exist, display error
             error_message = "Incorrect credentials. Please try again or register an account."
             return render(request, 'app/index.html', {'error_message': error_message})
     else:
@@ -91,21 +102,16 @@ def homepageafterlogin(request):
 
 @login_required
 def add_favourite(request, phone_id):
-    favourite = Favourite(user=request.user, item=phone_id)
+    favourite = Favourite(user=request.user, phone_id=phone_id)
     favourite.save()
+
     return redirect(reverse('app:favourites'))
-
-
-@login_required
-def favourite_list(request):
-    favourites = Favourite.objects.filter(user=request.user)
-    context = {'favourites': favourites}
-    return render(request, 'app/favourites.html', context)
 
 
 @login_required
 def submit_review(request):
     if request.method == 'POST':
+        # gather data and save review
         rating = request.POST['rating']
         model = request.POST['model']
         title = request.POST['title']
@@ -115,17 +121,36 @@ def submit_review(request):
                         comments=comments, user=request.user.username)
         review.save()
 
+        # redirect to homepage once review is saved
         return redirect(reverse('app:homepageafterlogin'))
     else:
         return HttpResponse('Invalid review')
 
 
+@login_required
 def about(request):
     return render(request, 'app/about.html')
 
 
+@login_required
 def database(request):
     return render(request, 'app/database.html')
+
+
+@login_required
+def show_individual(request, manufacturer_slug, model_slug):
+    phone = None
+
+    for p in phones:
+        if slugify(p['brand']) == manufacturer_slug and slugify(p['name']) == model_slug:
+            phone = p
+            break
+
+    if phone:
+        context_dict = phone
+        return render(request, 'app/individual.html', context=context_dict)
+    else:
+        return HttpResponse("Phone doesn't exist")
 
 
 def submit_form(request):
@@ -149,12 +174,20 @@ def find(request):
     return render(request, 'app/find.html')
 
 
+def get_phone(phone_id):
+    for phone in phones:
+        if phone['id'] == int(phone_id):
+            return phone
+
+
 @login_required
 def favourites(request):
-    favourites = Favourite.objects.filter(user=request.user)
-    context = {'favourites': favourites}
+    favourite_list = Favourite.objects.filter(user=request.user)
+    favourite_phones = [get_phone(favourite.phone_id) for favourite in favourite_list]
+    context = {'favourites': favourite_phones}
     return render(request, 'app/favourites.html', context)
 
 
+@login_required
 def review(request):
     return render(request, 'app/review.html')

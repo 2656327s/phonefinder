@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+{% extends 'app/base.html' %}
+{% load staticfiles %}
+<html>
+
+{% block title_block %}
+    {% if name %}
+        {{ name }}
+    {% endif %}
+{% endblock %}
+
+{% block body_block %}
+
+
+<!-- Jumbotron -->
+
+<header>
+
+	<br>
+	<br>
+
+	<div class="p-5 text bg-info">
+        <h1><strong style="color:white">
+            {% if name %}
+                {{ name }}
+            {% endif %}
+        </strong></h1>
+	</div>
+</header>
+
+
+<div class="container-fluid">
+<br></br>
+
+
+
+<!------------------------>
+
+<div class="p-5">
+
+
+<body>
+
+	<div>
+
+    <form method="POST" action="{% url 'app:add_favourite' id %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary">Add to favourites</button>
+    </form>
+
+
+
+        {% if picture %}
+            <img src="{{ picture }}" width="300" height="300" alt="Picture of {{ name }}" />
+        {% endif %}
+		<p style= font-weight:100>
+
+        {% if name %}
+        <ul>
+            <li><a>MANUFACTURER: {{ brand }}</a></li>
+            <li><a>YEAR: {{ releaseYear }}</a></li>
+            <li><a>STORAGE: {{ storage }} GB</a></li>
+            <li><a>RESOLUTION: {{ resolution }}</a></li>
+            <li><a>RAM: {{ ram }} GB</a></li>
+        </ul>
+        {% endif %}
+
+
+	</div>
+
+
+
+</div>
+
+
+{% endblock body_block %}
+
+
+</html>
