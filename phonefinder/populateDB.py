@@ -1,5 +1,5 @@
-
-
+import json
+import decimal
 
 from django.conf import settings
 import django
@@ -9,7 +9,6 @@ import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'phonefinder.settings')
 
 django.setup()
-from app.models import PhoneModel
 
 cursor = connection.cursor()
 cursor.execute("""SELECT devices.name, brands.name,SUBSTRING_INDEX(SUBSTRING_INDEX(released_at, ', ', 1), ' ', -1) AS release_year,    CASE 
@@ -29,11 +28,13 @@ FROM world.devices
 INNER JOIN world.brands ON devices.brand_id = brands.id WHERE (cast(substr(released_at,10,4) AS dec)>2018) order by cast(substr(released_at,10,4) AS dec) DESC;""")
 data = cursor.fetchall()
 
+with open("phones.json", "w") as fp:
+    listObj = []
 
-for row in data:
-    Phone = PhoneModel(id=data.index(row)+1, name=row[0], brand=row[1], releaseYear=row[2],
-                       storage=row[3], resolution=row[4], ram=row[5], picture=row[6])
-    Phone.save()
+    for row in data:
+        listObj.append({"id": data.index(row)+1, "name": row[0], "brand": row[1], "releaseYear": row[2],
+                        "storage": str(row[3]), "resolution": row[4], "ram": str(row[5]), "picture": row[6]})
 
+    json.dump(listObj, fp, indent=4, default=str, ensure_ascii=False)
 
 cursor.close()

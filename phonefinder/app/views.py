@@ -2,7 +2,7 @@ from django.core.exceptions import ValidationError
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from app.forms import UserForm, UserProfileForm
-#from app.models import Review, Favourite
+from app.models import Review, Favourite
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.password_validation import validate_password
@@ -89,35 +89,35 @@ def homepageafterlogin(request):
     return render(request, 'app/homepage-after-login.html')
 
 
-# @login_required
-# def add_favourite(request, phone_id):
-#     favourite = Favourite(user=request.user, item=phone_id)
-#     favourite.save()
-#     return redirect(reverse('app:favourites'))
+@login_required
+def add_favourite(request, phone_id):
+    favourite = Favourite(user=request.user, item=phone_id)
+    favourite.save()
+    return redirect(reverse('app:favourites'))
 
 
-# @login_required
-# def favourite_list(request):
-#     favourites = Favourite.objects.filter(user=request.user)
-#     context = {'favourites': favourites}
-#     return render(request, 'app/favourites.html', context)
+@login_required
+def favourite_list(request):
+    favourites = Favourite.objects.filter(user=request.user)
+    context = {'favourites': favourites}
+    return render(request, 'app/favourites.html', context)
 
 
-# @login_required
-# def submit_review(request):
-#     if request.method == 'POST':
-#         rating = request.POST['rating']
-#         model = request.POST['model']
-#         title = request.POST['title']
-#         comments = request.POST['comments']
+@login_required
+def submit_review(request):
+    if request.method == 'POST':
+        rating = request.POST['rating']
+        model = request.POST['model']
+        title = request.POST['title']
+        comments = request.POST['comments']
 
-#         review = Review(rating=rating, model=model, title=title,
-#                         comments=comments, user=request.user.username)
-#         review.save()
+        review = Review(rating=rating, model=model, title=title,
+                        comments=comments, user=request.user.username)
+        review.save()
 
-#         return redirect(reverse('app:homepageafterlogin'))
-#     else:
-#         return HttpResponse('Invalid review')
+        return redirect(reverse('app:homepageafterlogin'))
+    else:
+        return HttpResponse('Invalid review')
 
 
 def about(request):
@@ -149,12 +149,12 @@ def find(request):
     return render(request, 'app/find.html')
 
 
-# @login_required
-# def favourites(request):
-#     favourites = Favourite.objects.filter(user=request.user)
-#     context = {'favourites': favourites}
-#     return render(request, 'app/favourites.html', context)
+@login_required
+def favourites(request):
+    favourites = Favourite.objects.filter(user=request.user)
+    context = {'favourites': favourites}
+    return render(request, 'app/favourites.html', context)
 
 
-# # def review(request):
-# #     return render(request, 'app/review.html')
+def review(request):
+    return render(request, 'app/review.html')
