@@ -46,17 +46,209 @@
 
 
 <body>
+<div class="p-5">
+
+	
+<body>
+	<form id="submitForm">
 	<strong><h1> FIND YOUR PHONE</h1></strong>
-
-	<div>
-
-		<p style= font-weight:100>
-			Fill out the form below and we'll do the rest.
-		<p>
-		
-				
+	<div class="brand-select">
+	<label for="id_brand">Select a brand</label>
+	<select name="brand" id="id_brand">
+		<option value="">Any</option>
+	{% for brand in brands %}
+	<option value="{{ brand }}">{{ brand }}</option>
+	{% endfor %}
+	</select>
 	</div>
+	<div class="min-max-year">
+		<label for="id_min_year">Enter earliest release year:</label>
+		<input type="number" name="min_year" id="id_min_year" value="2018" min=2018 max=2022>	
+		<br/>
+		<label for="id_max_year">Enter Latest release year:</label>
+		<input type="number" name="max_year" id="id_max_year" value="2023" min=2018 max="2023">	
+		<script>
+			const minYearInput = document.getElementById('id_min_year');
+			const maxYearInput = document.getElementById('id_max_year');
+			
+			minYearInput.addEventListener('input', () => {
+			  if (minYearInput.value > maxYearInput.value) {
+				maxYearInput.value = minYearInput.value;
+			  }
+			});
+			
+			maxYearInput.addEventListener('input', () => {
+			  if (maxYearInput.value < minYearInput.value) {
+				minYearInput.value = maxYearInput.value;
+			  }
+			});
+		  </script>
+		  
+	</div>
+	<div class="min-max-storage">
+		<label for="id_min_storage">Select minimum Storage:</label>
+		<select name="min_storage" id="min_id_storage">
+			<option value=0>Any</option>
+			{% for storage in storages %}
+			<option value="{{ storage }}">{{ storage }}GB</option>
+			{% endfor %}
+		</select>
+		<br/>
+		<label for="id_max_storage">Select maximum Storage:</label>
+		<select name="max_storage" id="max_id_storage" >
+			<option value=20482048>Any</option>
+			{% for storage in storages %}
+			<option value="{{ storage }}">{{ storage }}GB</option>
+			{% endfor %}
+		</select>
+		<script>
+			const minStorageInput = document.getElementById('min_id_storage');
+			const maxStorageInput = document.getElementById('max_id_storage');
+			
+			minStorageInput.addEventListener('input', () => {
+			  if (minStorageInput.value > maxStorageInput.value) {
+				maxStorageInput.value = minStorageInput.value;
+			  }
+			});
+			
+			maxStorageInput.addEventListener('input', () => {
+			  if (maxStorageInput.value < minStorageInput.value) {
+				minStorageInput.value = maxStorageInput.value;
+			  }
+			});
+		  </script>
+	</div>
+	<div class="resolution">
+		<label for="id_min_width">Min Width:</label>
+		<select name="min_width" id="id_min_width">
+		  <option value="">Any</option>
+		  {% for width in widths %}
+			<option value="{{ width }}">{{ width }}px</option>
+		  {% endfor %}
+		</select>
+		
+		<label for="id_max_width">Max Width:</label>
+		<select name="max_width" id="id_max_width">
+		  <option value="">Any</option>
+		  {% for width in widths %}
+			<option value="{{ width }}">{{ width }}px</option>
+		  {% endfor %}
+		</select>
+		<script>
+			const minWidInput = document.getElementById('id_min_width');
+			const maxWidInput = document.getElementById('id_max_width');
+			
+			minWidInput.addEventListener('input', () => {
+			  if (minWidInput.value > maxWidInput.value) {
+				maxWidInput.value = minWidInput.value;
+			  }
+			});
+			
+			maxWidInput.addEventListener('input', () => {
+			  if (maxWidInput.value < minWidInput.value) {
+				minWidInput.value = maxWidInput.value;
+			  }
+			});
+		  </script>
+		  <br/>
+		<label for="id_min_height">Min Height:</label>
+		<select name="min_height" id="id_min_height">
+		  <option value="">Any</option>
+		  {% for height in heights %}
+			<option value="{{ height }}">{{ height }}px</option>
+		  {% endfor %}
+		</select>
+		
+		
+		<label for="id_max_height">Max Height:</label>
+		<select name="max_height" id="id_max_height">
+		  <option value="">Any</option>
+		  {% for height in heights %}
+			<option value="{{ height }}">{{ height }}px</option>
+		  {% endfor %}
+		</select>
+		<script>
+			const minHiInput = document.getElementById('id_min_height');
+			const maxHiInput = document.getElementById('id_max_height');
+			
+			minHiInput.addEventListener('input', () => {
+			  if (minHiInput.value > maxHiInput.value) {
+				maxHiInput.value = minHiInput.value;
+			  }
+			});
+			
+			maxHiInput.addEventListener('input', () => {
+			  if (maxHiInput.value < minHiInput.value) {
+				minHiInput.value = maxHiInput.value;
+			  }
+			});
+		  </script>
+	</div>
+	<div class="min-max-ram">
+		<label for="id_min_ram">Select minimum RAM:</label>
+		<select name="min_ram" id="min_id_ram">
+			<option value=0>Any</option>
+			{% for ram in rams %}
+			<option value="{{ ram }}">{{ ram }}GB</option>
+			{% endfor %}
+		</select>
+		<br/>
+		<label for="id_max_ram">Select maximum RAM:</label>
+		<select name="max_ram" id="max_id_ram" >
+			<option value=20482048>Any</option>
+			{% for ram in rams %}
+			<option value="{{ ram }}">{{ ram }}GB</option>
+			{% endfor %}
+		</select>
+		<script>
+			const minRAMInput = document.getElementById('min_id_ram');
+			const maxRAMInput = document.getElementById('max_id_ram');
+			
+			minRAMInput.addEventListener('input', () => {
+			  if (minRAMInput.value > maxRAMInput.value) {
+				maxRAMInput.value = minRAMInput.value;
+			  }
+			});
+			
+			maxRAMInput.addEventListener('input', () => {
+			  if (maxRAMInput.value < minRAMInput.value) {
+				minRAMInput.value = maxRAMInput.value;
+			  }
+			});
+		  </script>
+	</div>
+	<div>
+			<!-- form fields here -->
+		<button type="submit" id="submitBtn">Submit</button>
+	</div>
+	</form>
+		  <script>
+			const form = document.getElementById("submitForm");
+			const button = document.getElementById("submitBtn");
+		  
+			button.addEventListener("click", function(e) {
+			  e.preventDefault(); // prevent default form submission behavior
+			  const formData = new FormData(form); // get the form data
+			  const data = Object.fromEntries(formData.entries()); // convert form data to object
+			  const url = "/phonefinder/display/"; // replace with your desired destination URL
+			  // make an HTTP request with the form data
+			  console.log(JSON.stringify(data))
+			  fetch(url, {
+				method: "POST",
+				body: JSON.stringify(data),
+				headers: {
+				  "Content-Type": "application/json"
+				}
+			  })
+			  .then(response => response.json())
+			  .then(data => console.log(data))
+			  .catch(error => console.error(error));
+			});
+		  </script>
+	
+	</body>
 
+	
 
 	
 </div>
