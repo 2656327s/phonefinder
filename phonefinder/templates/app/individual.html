@@ -43,28 +43,59 @@
 
 	<div>
 
-    <form method="POST" action="{% url 'app:add_favourite' id %}">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-primary">Add to favourites</button>
-    </form>
+        <h2 style="text-transform:uppercase">                {{ name }}         </h2>
 
+        <h4 style="text-transform:uppercase">  MANUFACTURER:   {{ brand }}   &nbsp&nbsp&nbsp  YEAR: {{ releaseYear }} </h4>
+        
+        <style>
+            .container {
+              display: flex;
+              align-items: left;
+              justify-content: left;
+            }
+            img {
+              max-width: 100%
 
+            }
+            .image {
+              flex-basis: 17%
+            }
+            .text {
+              font-size: 20px;
+     
+            }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <div class="image">
+                {% if picture %}
+                <img style="float: left;  margin: 0px 15px 15px 0px;" src="{{ picture }}"  alt="Picture of {{ name }}" />
+            {% endif %}
+            </div>
+            <div class="text">
+                {% if name %}
+                <h2> KEY INFO </h2>
+                <ul style="list-style: none;"></ul>
+                    <li>MANUFACTURER: {{ brand }}</li>
+                    <li><a>YEAR: {{ releaseYear }}</a></li>
+                    <li><a>STORAGE: {{ storage }} GB</a></li>
+                    <li><a>RESOLUTION: {{ resolution }}</a></li>
+                    <li><a>RAM: {{ ram }} GB</a>
+                </ul>
+                {% endif %}      
+                <br></br> 
+                <form method="POST" action="{% url 'app:add_favourite' id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary">Add to favourites</button>
+                </form>     
+            </div>
+          </div>
+        </body>
+    
+        <br>
 
-        {% if picture %}
-            <img src="{{ picture }}" width="300" height="300" alt="Picture of {{ name }}" />
-        {% endif %}
-		<p style= font-weight:100>
-
-        {% if name %}
-        <ul>
-            <li><a>MANUFACTURER: {{ brand }}</a></li>
-            <li><a>YEAR: {{ releaseYear }}</a></li>
-            <li><a>STORAGE: {{ storage }} GB</a></li>
-            <li><a>RESOLUTION: {{ resolution }}</a></li>
-            <li><a>RAM: {{ ram }} GB</a></li>
-        </ul>
-        {% endif %}
-
+        
 
 	</div>
 
