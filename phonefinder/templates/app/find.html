@@ -121,7 +121,7 @@
 	<div class="resolution">
 		<label for="id_min_width">Min Width:</label>
 		<select name="min_width" id="id_min_width">
-		  <option value="">Any</option>
+		  <option value=0>Any</option>
 		  {% for width in widths %}
 			<option value="{{ width }}">{{ width }}px</option>
 		  {% endfor %}
