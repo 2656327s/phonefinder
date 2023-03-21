@@ -33,7 +33,7 @@ with open("phones.json", "w") as fp:
 
     for row in data:
         listObj.append({"id": data.index(row)+1, "name": row[0], "brand": row[1], "releaseYear": row[2],
-                        "storage": str(row[3]), "resolution": row[4], "ram": str(row[5]), "picture": row[6]},)
+                        "storage": str(row[3]), "resolution": row[4], "ram": str(row[5]), "picture": row[6]})
 
     json.dump(listObj, fp, indent=4, default=str, ensure_ascii=False)
 
