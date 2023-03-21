@@ -64,6 +64,15 @@
               font-size: 20px;
      
             }
+            .row {
+            float: left;
+            }
+
+            .column {
+            
+            padding: 15px;
+            }
+
           </style>
         </head>
         <body>
@@ -82,15 +91,32 @@
                     <li><a>STORAGE: {{ storage }} GB</a></li>
                     <li><a>RESOLUTION: {{ resolution }}</a></li>
                     <li><a>RAM: {{ ram }} GB</a>
+
                 </ul>
-                {% endif %}      
+                {% endif %} 
+                
                 <br></br> 
                 <form method="POST" action="{% url 'app:add_favourite' id %}">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-primary">Add to favourites</button>
                 </form>     
             </div>
+
           </div>
+          <h2> BUY NOW! </h2>
+          <div class="row">
+            <div class="column">
+                <p><a href="https://www.amazon.co.uk/s?k={{ name }}"><img src="{% static '/images/partners/amazon.png' %}" style="width:50px;height:50px;"></a></p>
+            </div>
+            <div class="column">
+                <p><a href="https://www.currys.co.uk/search?q={{ name }}"><img src="{% static '/images/partners/curry.png' %}" style="width:50px;height:50px;"></a></p>
+            </div>
+            <div class="column">
+                <p><a href="https://www.johnlewis.com/search?search-term={{ name }}"><img src="{% static '/images/partners/john-lewis.png' %}" style="width:50px;height:50px;"></a></p>
+            </div>
+          </div>
+
+    
         </body>
     
         <br>
