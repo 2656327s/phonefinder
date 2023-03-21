@@ -202,4 +202,10 @@ def favourites(request):
 
 @login_required
 def review(request):
-    return render(request, 'app/review.html')
+
+    # get 5 most recent reviews and pass into context
+    recent_reviews = Review.objects.order_by('-pub_date')[:5]
+
+    context_dict = {}
+    context_dict['recent_reviews'] = recent_reviews
+    return render(request, 'app/review.html', context=context_dict)
