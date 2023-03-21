@@ -13,8 +13,15 @@
 <!-- Jumbotron -->
     <style>
         .blue-text {
-        color: #2aa9e1;
-    }
+            color: #2aa9e1;
+        }
+
+        select.chosen {
+            padding: 5px;
+            margin: 5px 0;
+            width: 100%;
+        }
+
     </style>
 
 <header>
@@ -62,9 +69,18 @@
 		  </div>
 
 		  <div class="form-row">
-			<label for="inputModel">Model</label>
-			<input type="text" name="model" class="form-control" id="inputModel" placeholder="Model">
-		  </div>
+            <label for="inputModel">Model</label>
+              <select class="chosen" name="model" id="inputModel">
+                  {% if phones %}
+                  {% for phone in phones %}
+                    <option>{{ phone.name }}</option>
+                  {% endfor %}
+                  {% endif %}
+              </select>
+
+          </div>
+
+        <br>
 
 		  <div class="form-row">
 			<label for="inputTitle">Title</label>
@@ -113,6 +129,10 @@
     {% endif %}
 		<p>
 
+
+    <script type="text/javascript">
+        $(".chosen").chosen();
+    </script>
 
 {% endblock body_block %}
 

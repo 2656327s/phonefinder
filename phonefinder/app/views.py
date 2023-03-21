@@ -10,7 +10,6 @@ from django.contrib.auth.password_validation import validate_password
 from django.urls import reverse
 from django.utils.text import slugify
 
-
 with open('phones.json', 'r') as file:
     phones = json.load(file)
 
@@ -102,7 +101,6 @@ def homepageafterlogin(request):
 
 @login_required
 def add_favourite(request, phone_id):
-
     # check if user has 5 favourites already
     user_favourites = Favourite.objects.filter(user=request.user)
     favourites_count = user_favourites.count()
@@ -110,7 +108,6 @@ def add_favourite(request, phone_id):
     if favourites_count >= 5:
         oldest = user_favourites.order_by('id').first()
         oldest.delete()
-
 
     # Add new favourite
     favourite = Favourite(user=request.user, phone_id=phone_id)
@@ -202,10 +199,10 @@ def favourites(request):
 
 @login_required
 def review(request):
-
     # get 5 most recent reviews and pass into context
     recent_reviews = Review.objects.order_by('-pub_date')[:5]
 
     context_dict = {}
     context_dict['recent_reviews'] = recent_reviews
+    context_dict['phones'] = phones
     return render(request, 'app/review.html', context=context_dict)
