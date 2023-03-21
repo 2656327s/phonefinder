@@ -155,6 +155,7 @@ def show_individual(request, manufacturer_slug, model_slug):
     for p in phones:
         if slugify(p['brand']) == manufacturer_slug and slugify(p['name']) == model_slug:
             phone = p
+            phone['storage'] = round(float(phone['storage']), 2)
             break
 
     if phone:
