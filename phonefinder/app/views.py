@@ -102,6 +102,17 @@ def homepageafterlogin(request):
 
 @login_required
 def add_favourite(request, phone_id):
+
+    # check if user has 5 favourites already
+    user_favourites = Favourite.objects.filter(user=request.user)
+    favourites_count = user_favourites.count()
+
+    if favourites_count >= 5:
+        oldest = user_favourites.order_by('id').first()
+        oldest.delete()
+
+
+    # Add new favourite
     favourite = Favourite(user=request.user, phone_id=phone_id)
     favourite.save()
 
