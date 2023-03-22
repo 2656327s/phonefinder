@@ -80,41 +80,39 @@
 
 		<button type="submit" class="btn btn-primary">Leave your review</button>
 	  </form>
+	  <br>
 
+	  <h2 class="text blue-text">YOUR RECENT REVIEWS </h2>
 
-	
-</div>
+	  <div>
+  
+		  <p style= font-weight:100>
+  
+		  {% if recent_reviews %}
+  
+			  <div class="card-deck">
+  
+			  {% for review in recent_reviews %}
+			  <div class="card">
+				  <div class="card-body">
+					  <h5 class="card-title blue-text">{{ review.title }} - {{ review.model }}</h5>
+					  <p class="card-text">
+						  {{ review.comments }}
+					  </p>
+				  </div>
+				  <div class="card-footer text-center">
+					  {{ review.rating }}/5
+				  </div>
+			  </div>
+			  {% endfor %}
+  
+			  </div>
+	  {% endif %}
 
-    <h2 class="text-center blue-text">Recent reviews</h2>
+	  <br>
+  </div>
 
-    <div>
-
-		<p style= font-weight:100>
-
-        {% if recent_reviews %}
-
-            <div class="card-deck">
-
-            {% for review in recent_reviews %}
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title blue-text">{{ review.title }} - {{ review.model }}</h5>
-                    <p class="card-text">
-                        {{ review.comments }}
-                    </p>
-                </div>
-                <div class="card-footer text-center">
-                    {{ review.rating }}/5
-                </div>
-            </div>
-            {% endfor %}
-
-            </div>
-    {% endif %}
-		<p>
-
+   
 
 {% endblock body_block %}
 
-
-</html>
