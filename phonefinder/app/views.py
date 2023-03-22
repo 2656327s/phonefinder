@@ -242,3 +242,14 @@ def review(request):
     context_dict['recent_reviews'] = recent_reviews
     context_dict['phones'] = phones
     return render(request, 'app/review.html', context=context_dict)
+
+
+@login_required
+def search(request):
+    # get 5 most recent reviews and pass into context
+    all_reviews = Review.objects.order_by('-pub_date')
+    context_dict = {}
+    context_dict['all_reviews'] = all_reviews
+    context_dict['phones'] = phones
+    return render(request, 'app/review-search.html', context=context_dict)
+
