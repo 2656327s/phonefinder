@@ -87,7 +87,7 @@
                     </p>
                 </div>
                 <div class="card-footer">
-                    <a class="btn btn-info" href="{% url 'app:show_individual' manufacturer_slug=favourite.brand|slugify model_slug=favourite.name|slugify %}" role="button">View</a>
+                    <a class="btn btn-primary" href="{% url 'app:show_individual' manufacturer_slug=favourite.brand|slugify model_slug=favourite.name|slugify %}" role="button">View</a>
                 </div>
             </div>
             {% endfor %}
@@ -98,7 +98,7 @@
     <h2 class="text-center blue-text">You haven't added any favourites yet - Start browsing below!</h2>
             <br>
             <div class="text-center">
-        <a class="btn btn-info" href="{% url 'app:find' %}" role="button">Find phones</a>
+        <a class="btn btn-primary" href="{% url 'app:find' %}" role="button">Find phones</a>
     </div>
     {% endif %}
 		<p>

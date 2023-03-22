@@ -8,11 +8,15 @@ from app.models import Review, Favourite
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.password_validation import validate_password
+from django.template.defaultfilters import slugify
 from django.urls import reverse
 import json
 from urllib.parse import urlencode
 import os
 from app.filter import filterPhones
+
+with open('phones.json', 'r') as file:
+    phones = json.load(file)
 
 
 def index(request):
@@ -156,13 +160,12 @@ def database(request):
 
 
 def find(request):
-
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     json_file_path = os.path.join(BASE_DIR, 'phones.json')
     with open(json_file_path) as json_file:
         phones = json.load(json_file)
 
-    # Create an empty dictionary to hold the possible values for each attribute
+        # Create an empty dictionary to hold the possible values for each attribute
         brands = []
         widths = []
         heights = []
@@ -196,8 +199,23 @@ def find(request):
         }
         json_file.close()
 
-# Render the template with the context dictionary
+    # Render the template with the context dictionary
     return render(request, 'app/find.html', context_dict)
+
+
+@login_required
+def show_individual(request, manufacturer_slug, model_slug):
+    phone = None
+    for p in phones:
+        if slugify(p['brand']) == manufacturer_slug and slugify(p['name']) == model_slug:
+            phone = p
+            phone['storage'] = round(float(phone['storage']), 2)
+            break
+    if phone:
+        context_dict = phone
+        return render(request, 'app/individual.html', context=context_dict)
+    else:
+        return HttpResponse("Phone doesn't exist")
 
 
 def get_phone(phone_id):
