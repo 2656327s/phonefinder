@@ -1,3 +1,4 @@
+import json
 from django.core.exceptions import ValidationError
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
@@ -29,6 +30,8 @@ def register(request):
 
             password = user_form.cleaned_data['password']
 
+            # validata password meets requirements, if not display error message
+            # directly from ValidationError
             try:
                 validate_password(password)
             except ValidationError as e:
@@ -71,12 +74,15 @@ def user_login(request):
         if user:
             if user.is_active:
 
+                # log in and render the homepage if user exists and is active
                 login(request, user)
                 return render(request, 'app/homepage-after-login.html', {})
             else:
+                # if user exists but isn't active, display error message
                 error_message = "Your account is disabled."
                 return render(request, 'app/index.html', {'error_message': error_message})
         else:
+            # if user doesn't exist, display error
             error_message = "Incorrect credentials. Please try again or register an account."
             return render(request, 'app/index.html', {'error_message': error_message})
     else:
@@ -96,21 +102,25 @@ def homepageafterlogin(request):
 
 @login_required
 def add_favourite(request, phone_id):
-    favourite = Favourite(user=request.user, item=phone_id)
+    # check if user has 5 favourites already
+    user_favourites = Favourite.objects.filter(user=request.user)
+    favourites_count = user_favourites.count()
+
+    if favourites_count >= 5:
+        oldest = user_favourites.order_by('id').first()
+        oldest.delete()
+
+    # Add new favourite
+    favourite = Favourite(user=request.user, phone_id=phone_id)
     favourite.save()
+
     return redirect(reverse('app:favourites'))
-
-
-@login_required
-def favourite_list(request):
-    favourites = Favourite.objects.filter(user=request.user)
-    context = {'favourites': favourites}
-    return render(request, 'app/favourites.html', context)
 
 
 @login_required
 def submit_review(request):
     if request.method == 'POST':
+        # gather data and save review
         rating = request.POST['rating']
         model = request.POST['model']
         title = request.POST['title']
@@ -120,15 +130,18 @@ def submit_review(request):
                         comments=comments, user=request.user.username)
         review.save()
 
+        # redirect to homepage once review is saved
         return redirect(reverse('app:homepageafterlogin'))
     else:
         return HttpResponse('Invalid review')
 
 
+@login_required
 def about(request):
     return render(request, 'app/about.html')
 
 
+@login_required
 def database(request):
     if request.method == "POST":
         phone_json = json.loads(request.body)
@@ -140,23 +153,6 @@ def database(request):
         return JsonResponse(context, safe=False)
     else:
         return render(request, 'app/database.html')
-
-
-# def submit_form(request):
-#     if request.method == 'POST':
-#         # process the form data as needed
-#         data = {
-#             'brand': request.POST.get('brand'),
-#             'min_year': int(request.POST.get('min_year')),
-#             'max_year': int(request.POST.get('max_year')),
-#         }
-#         # create a JSON response with the desired data
-#         response_data = {'success': True, 'data': data}
-#         return JsonResponse(response_data)
-#     else:
-#         # return an error response if the request method is not POST
-#         response_data = {'success': False, 'error': 'Invalid request method'}
-#         return JsonResponse(response_data, status=400)
 
 
 def find(request):
@@ -204,12 +200,27 @@ def find(request):
     return render(request, 'app/find.html', context_dict)
 
 
+def get_phone(phone_id):
+    for phone in phones:
+        if phone['id'] == int(phone_id):
+            return phone
+
+
 @login_required
 def favourites(request):
-    favourites = Favourite.objects.filter(user=request.user)
-    context = {'favourites': favourites}
+    favourite_list = Favourite.objects.filter(user=request.user)
+    favourite_phones = [get_phone(favourite.phone_id)
+                        for favourite in favourite_list]
+    context = {'favourites': favourite_phones}
     return render(request, 'app/favourites.html', context)
 
 
+@login_required
 def review(request):
-    return render(request, 'app/review.html')
+    # get 5 most recent reviews and pass into context
+    recent_reviews = Review.objects.order_by('-pub_date')[:5]
+
+    context_dict = {}
+    context_dict['recent_reviews'] = recent_reviews
+    context_dict['phones'] = phones
+    return render(request, 'app/review.html', context=context_dict)

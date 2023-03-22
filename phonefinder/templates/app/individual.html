@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+{% extends 'app/base.html' %}
+{% load staticfiles %}
+<html>
+
+{% block title_block %}
+    {% if name %}
+        {{ name }}
+    {% endif %}
+{% endblock %}
+
+{% block body_block %}
+
+
+<!-- Jumbotron -->
+
+<header>
+
+	<br>
+	<br>
+
+	<div class="p-5 text bg-info">
+        <h1><strong style="color:white">
+            {% if name %}
+                {{ name }}
+            {% endif %}
+        </strong></h1>
+	</div>
+</header>
+
+
+<div class="container-fluid">
+<br></br>
+
+
+
+<!------------------------>
+
+<div class="p-5">
+
+
+<body>
+
+	<div>
+
+        <h2 style="text-transform:uppercase">                {{ name }}         </h2>
+
+        <h4 style="text-transform:uppercase">  MANUFACTURER:   {{ brand }}   &nbsp&nbsp&nbsp  YEAR: {{ releaseYear }} </h4>
+        
+        <style>
+            .container {
+              display: flex;
+              align-items: left;
+              justify-content: left;
+            }
+            img {
+              max-width: 100%
+
+            }
+            .image {
+              flex-basis: 17%
+            }
+            .text {
+              font-size: 20px;
+     
+            }
+            .row {
+            float: left;
+            }
+
+            .column {
+            
+            padding: 15px;
+            }
+
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <div class="image">
+                {% if picture %}
+                <img style="float: left;  margin: 0px 15px 15px 0px;" src="{{ picture }}"  alt="Picture of {{ name }}" />
+            {% endif %}
+            </div>
+            <div class="text">
+                {% if name %}
+                <h2> KEY INFO </h2>
+                <ul style="list-style: none;"></ul>
+                    <li>MANUFACTURER: {{ brand }}</li>
+                    <li><a>YEAR: {{ releaseYear }}</a></li>
+                    <li><a>STORAGE: {{ storage }} GB</a></li>
+                    <li><a>RESOLUTION: {{ resolution }}</a></li>
+                    <li><a>RAM: {{ ram }} GB</a>
+
+                </ul>
+                {% endif %} 
+                
+                <br></br> 
+                <form method="POST" action="{% url 'app:add_favourite' id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary">Add to favourites</button>
+                </form>     
+            </div>
+
+          </div>
+          <h2> BUY NOW! </h2>
+          <div class="row">
+            <div class="column">
+                <p><a href="https://www.amazon.co.uk/s?k={{ name }}"><img src="{% static '/images/partners/amazon.png' %}" style="width:50px;height:50px;"></a></p>
+            </div>
+            <div class="column">
+                <p><a href="https://www.currys.co.uk/search?q={{ name }}"><img src="{% static '/images/partners/curry.png' %}" style="width:50px;height:50px;"></a></p>
+            </div>
+            <div class="column">
+                <p><a href="https://www.johnlewis.com/search?search-term={{ name }}"><img src="{% static '/images/partners/john-lewis.png' %}" style="width:50px;height:50px;"></a></p>
+            </div>
+          </div>
+
+    
+        </body>
+    
+        <br>
+
+        
+
+	</div>
+
+
+
+</div>
+
+
+{% endblock body_block %}
+
+
+</html>
