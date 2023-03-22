@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 
 
 class UserProfile(models.Model):
-
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     website = models.URLField(blank=True)
     picture = models.ImageField(upload_to='profile_images', blank=True)
@@ -23,7 +22,7 @@ class Review(models.Model):
     model = models.CharField(max_length=100)
     title = models.CharField(max_length=100)
     comments = models.TextField()
-    user = models.CharField(max_length=100, default="")
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     pub_date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
     def __str__(self):

@@ -131,7 +131,7 @@ def submit_review(request):
         comments = request.POST['comments']
 
         review = Review(rating=rating, model=model, title=title,
-                        comments=comments, user=request.user.username)
+                        comments=comments, user=request.user)
         review.save()
 
         # redirect to homepage once review is saved
