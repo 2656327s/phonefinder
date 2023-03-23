@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+{% extends 'app/base.html' %}
+{% load staticfiles %}
+<html>
+
+{% block title_block %}
+    {% if name %}
+        {{ name }}
+    {% endif %}
+{% endblock %}
+
+{% block body_block %}
+
+
+<!-- Jumbotron -->
+
+<header>
+
+	<br>
+	<br>
+
+	<div class="p-5 text bg-info">
+        <h1><strong style="color:white">
+            {% if name %}
+                {{ name }}
+            {% endif %}
+        </strong></h1>
+	</div>
+</header>
+
+
+<div class="container-fluid">
+<br></br>
+
+
+
+<!------------------------>
+
+<div class="p-5">
+
+
+<body>
+
+	<div>
+
+        <h2 style="text-transform:uppercase">                {{ name }}         </h2>
+
+        <h4 style="text-transform:uppercase">  MANUFACTURER:   {{ brand }}   &nbsp&nbsp&nbsp  YEAR: {{ releaseYear }} </h4>
+        
+        <style>
+            .container {
+              display: flex;
+              align-items: left;
+              justify-content: left;
+            }
+            img {
+              max-width: 100%
+
+            }
+            .image {
+              flex-basis: 17%
+            }
+            .text {
+              font-size: 20px;
+     
+            }
+            .row {
+                float: left;
+            }
+
+            .column {
+            
+                padding: 5px;
+            }
+
+            .card-deck {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+
+            .blue-text {
+                color: #2aa9e1;
+            }
+
+            .green-text {
+                color: #00D100;
+            }
+
+            .orange-text {
+                color: #FFA500;
+            }
+
+            .red-text {
+                color: #FF0000;
+            }
+
+            .card {
+                max-width: 250px;
+                margin: 0 auto;
+            }
+
+            .card-body {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .card-footer {
+                margin-top: auto;
+                text-align: center;
+            }
+
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <div class="image">
+                {% if picture %}
+                <img style="float: left;  margin: 0px 15px 15px 0px;" src="{{ picture }}"  alt="Picture of {{ name }}" />
+            {% endif %}
+            </div>
+            <div class="text">
+                {% if name %}
+                <h2> KEY INFO </h2>
+                <ul style="list-style: none;"></ul>
+                    <li>MANUFACTURER: {{ brand }}</li>
+                    <li><a>YEAR: {{ releaseYear }}</a></li>
+                    <li><a>STORAGE: {{ storage }} GB</a></li>
+                    <li><a>RESOLUTION: {{ resolution }} pixels</a></li>
+                    <li><a>RAM: {{ ram }} GB</a>
+
+                </ul>
+                {% endif %} 
+                
+                <br></br> 
+                <form method="POST" action="{% url 'app:add_favourite' id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary">Add to favourites</button>
+                </form>     
+            </div>
+
+          </div>
+
+
+          
+          <h2> BUY NOW! </h2>
+          <div class="row">
+            <div class="column">
+                <p><a href="https://www.amazon.co.uk/s?k={{ name }}"><img src="{% static '/images/partners/amazon.png' %}" style="width:50px;height:50px;"></a></p>
+            </div>
+            <div class="column">
+                <p><a href="https://www.currys.co.uk/search?q={{ name }}"><img src="{% static '/images/partners/curry.png' %}" style="width:50px;height:50px;"></a></p>
+            </div>
+            <div class="column">
+                <p><a href="https://www.johnlewis.com/search?search-term={{ name }}"><img src="{% static '/images/partners/john-lewis.png' %}" style="width:50px;height:50px;"></a></p>
+            </div>
+
+            <div class="container">
+
+            <h2> REVIEWS </h2>
+
+            </div>
+
+            {% if reviews %}
+
+            <div class="card-deck">
+            
+            {% for review in reviews %}
+            
+            <div class="card">
+                
+                    
+  
+                  {% if review.rating == 5%}
+                  <img class="card-img-top" src="{% static '/images/review/5star.png' %}" alt="Card image cap" width= 25%>
+  
+                  {% elif review.rating == 4 %}
+                  <img class="card-img-top" src="{% static '/images/review/4star.png' %}" alt="Card image cap" width= 25%>
+  
+                  {% elif review.rating == 3 %}
+                  <img class="card-img-top" src="{% static '/images/review/3star.png' %}" alt="Card image cap" width= 25%>
+  
+                  {% elif review.rating == 2 %}
+                  <img class="card-img-top" src="{% static '/images/review/2star.png' %}" alt="Card image cap" width= 25%>
+  
+                  {% else %}
+                  <img class="card-img-top" src="{% static '/images/review/1star.png' %}" alt="Card image cap" width= 25%>
+  
+                  {% endif %}
+        
+
+      
+      
+
+                <div class="card-body">
+                    <h3 class="card-title centre-text">{{ review.title }}</h5>
+                    <p class="card-text">
+                        {{ review.comments }}
+                    </p>
+                </div>
+                <div class="card-footer text-center
+                {% if review.rating >= 4 %}
+                    green-text
+                {% elif review.rating == 3 %}
+                    orange-text
+                {% else %}
+                    red-text
+                {% endif %}
+                ">
+                    {{ review.rating }}/5
+
+                    
+                </div>
+
+
+            </div>
+            {% endfor %}
+
+            <div class="p-5">
+                {% else %}
+                  <h5 class="text-center">No reviews yet. Be the first - <a class="btn btn-primary center" href="{% url 'app:review' %}" role="button">Leave a review</a></h5>
+              {% endif %}
+          </div>
+   
+        
+        </div>
+
+    
+        </body>
+    
+        <br>
+        
+        <br>
+
+	</div>
+
+    &ensp;
+
+</div>
+
+</br>
+
+
+{% endblock body_block %}
+</br>
+
+</html>

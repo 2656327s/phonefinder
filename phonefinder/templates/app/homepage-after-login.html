@@ -48,7 +48,7 @@ Homepage
         <div class="card-body">
           <h5 class="card-title">Find your perfect phone</h5>
           <p class="card-text">Use our search feature to help you find the perfect phone!</p>
-          <a class="btn btn-info" href="#" role="button">Find your Phone!</a>
+          <a class="btn btn-info" href="{% url 'app:find' %}" role="button">Find your Phone!</a>
 
         </div>
       </div>
@@ -58,7 +58,7 @@ Homepage
         <div class="card-body">
           <h5 class="card-title">Your Favourites</h5>
           <p class="card-text">Found the perfect phone, save it to your favourites!</p>
-          <a class="btn btn-info" href="#" role="button">Add now...buy later!</a>
+          <a class="btn btn-info" href="{% url 'app:favourites' %}" role="button">Add now...buy later!</a>
 
         </div>
      </div>
@@ -66,9 +66,9 @@ Homepage
       <div class="card">
         <img class="card-img-top" src="{% static '/images/homepage/phone.png' %}" alt="Card image cap">
         <div class="card-body">
-          <h5 class="card-title">All our Phones</h5>
-          <p class="card-text">Want to find out more about all our phones? Browse our full database and filter by your choices!</p>
-          <a class="btn btn-info" href="#" role="button"> Browse our phones!</a>
+          <h5 class="card-title">About Us</h5>
+          <p class="card-text">Want to find out more about all our Us?</p>
+          <a class="btn btn-info" href="{% url 'app:database' %}" role="button"> Learn more!</a>
 
         </div>
       </div>
@@ -78,20 +78,13 @@ Homepage
         <div class="card-body">
           <h5 class="card-title">Leave a Review</h5>
           <p class="card-text">Help inform our users!</p>
-          <a class="btn btn-info" href="#" role="button">Leave your thoughts!</a>
+          <a class="btn btn-info" href="{% url 'app:review' %}" role="button">Leave your thoughts!</a>
         
 
         </div>
     
       </div>
-      <div class="card">
-        <img class="card-img-top" src="{% static '/images/homepage/search.png' %}" alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-        </div>
-      </div>
-    </div>
+    
     
     </body>
     </br>

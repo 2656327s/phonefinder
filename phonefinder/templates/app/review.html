@@ -11,6 +11,38 @@
 
 
 <!-- Jumbotron -->
+    <style>
+        .blue-text {
+            color: #2aa9e1;
+        }
+
+        .green-text {
+            color: #00D100;
+        }
+
+        .orange-text {
+            color: #FFA500;
+        }
+
+        .red-text {
+            color: #FF0000;
+        }
+
+        select.chosen {
+            padding: 5px;
+            margin: 5px 0;
+            width: 100%;
+        }
+
+		.five-star {
+			
+			 
+			src: "{% static '/images/review/5star.png' %}" alt="Card image cap"
+
+
+		}
+
+    </style>
 
 <header>
 	
@@ -39,32 +71,45 @@
 	<div>
 
 		<p style= font-weight:100>
-			Fill out the form below and we'll do the rest.
+			Fill out the form below, and we'll do the rest.
+
+			1 is lowest and 5 is highest
 		<p>
 		
 				
 	</div>
 
-	<form>
+	<form method="POST" action="{% url 'app:submit_review' %}">
 
-		  <div class="form-group">
-			<label for="inputEmail4">Rating</label>
-			<input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+        {% csrf_token %}
+
+        <div class="form-group">
+			<label for="inputRating">Rating</label>
+			<input type="number" name="rating" class="form-control" id="inputRating" placeholder="Rating" min="1" max="5">
 		  </div>
 
 		  <div class="form-row">
-			<label for="inputAddress">Model</label>
-			<input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+            <label for="inputModel">Model</label>
+              <select class="chosen" name="model" id="inputModel">
+                  {% if phones %}
+                  {% for phone in phones %}
+                    <option>{{ phone.name }}</option>
+                  {% endfor %}
+                  {% endif %}
+              </select>
+
+          </div>
+
+        <br>
+
+		  <div class="form-row">
+			<label for="inputTitle">Title</label>
+			<input type="text" name="title" class="form-control" id="inputTitle" placeholder="Title">
 		  </div>
 
 		  <div class="form-row">
-			<label for="inputAddress">Title</label>
-			<input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-		  </div>
-
-		  <div class="form-row">
-			<label for="inputPassword4">Comments</label>
-			<textarea class="form-control" id="inputComments" placeholder="Your review" rows="5"></textarea>
+			<label for="inputComments">Comments</label>
+			<textarea name="comments" class="form-control" id="inputComments" placeholder="Your review" rows="5"></textarea>
 		  </div>
 
 		  <br>
@@ -72,9 +117,82 @@
 		<button type="submit" class="btn btn-primary">Leave your review</button>
 	  </form>
 
+	</br>
+</br>
+
+	  <h2 class=" blue-text">RECENT REVIEWS</h2>
+
+	  <div>
+  
+		  <p style= font-weight:100>
+  
+		  {% if recent_reviews %}
+  
+			  <div class="card-deck">
+  
+			  {% for review in recent_reviews %}
+			  <div class="card">
+				  <div class="card-body">
+
+				{% if review.rating == 5%}
+				<img class="card-img-top" src="{% static '/images/review/5star.png' %}" alt="Card image cap" width= 25%>
+
+				{% elif review.rating == 4 %}
+				<img class="card-img-top" src="{% static '/images/review/4star.png' %}" alt="Card image cap" width= 25%>
+
+				{% elif review.rating == 3 %}
+				<img class="card-img-top" src="{% static '/images/review/3star.png' %}" alt="Card image cap" width= 25%>
+
+				{% elif review.rating == 2 %}
+				<img class="card-img-top" src="{% static '/images/review/2star.png' %}" alt="Card image cap" width= 25%>
+
+				{% else %}
+				<img class="card-img-top" src="{% static '/images/review/1star.png' %}" alt="Card image cap" width= 25%>
+
+				{% endif %}
+				  </br>
+				</br>
+
+
+					<h3 class="text-center">{{ review.model }}</h3>
+					<h2 class="blue-text text-center">{{ review.title }}</h2>
+
+					  <p class="card-text text-center">
+						  {{ review.comments }}
+					  </p>
+				  </div>
+
+
+				  <div class=
+				   "card-footer text-center
+				  {% if review.rating >= 4 %}
+					  green-text
+					  img src={% static '/images/review/5star.png' %}
+
+				  {% elif review.rating == 3 %}
+					  orange-text
+				  {% else %}
+					  red-text
+				  {% endif %}
+				  ">
+					  RATING: {{ review.rating }}/5
+				  </div>
+			  </div>
+			  {% endfor %}
+  
+			  </div>
+	  {% endif %}
+		  <p>
+  
+  
+	  <script type="text/javascript">
+		  $(".chosen").chosen();
+	  </script>
+
 
 	
 </div>
+
 
 
 {% endblock body_block %}

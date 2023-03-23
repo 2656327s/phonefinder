@@ -28,7 +28,11 @@ SECRET_KEY = '-p!vi$p8kwg89uvcxo$+oicpxq*l^2*_+$)mt&mqfyj@8$p+8b'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+<<<<<<< HEAD
 ALLOWED_HOSTS = ['2656327s.pythonanywhere.com', '127.0.0.1']
+=======
+ALLOWED_HOSTS = ['http://2656327s.pythonanywhere.com/',
+                 '127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -77,14 +81,12 @@ WSGI_APPLICATION = 'phonefinder.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -95,6 +97,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {'min_length': 8}
     },
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
