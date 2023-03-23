@@ -34,6 +34,14 @@
             width: 100%;
         }
 
+		.five-star {
+			
+			 
+			src: "{% static '/images/review/5star.png' %}" alt="Card image cap"
+
+
+		}
+
     </style>
 
 <header>
@@ -109,50 +117,83 @@
 		<button type="submit" class="btn btn-primary">Leave your review</button>
 	  </form>
 
+	</br>
+</br>
+
+	  <h2 class=" blue-text">RECENT REVIEWS</h2>
+
+	  <div>
+  
+		  <p style= font-weight:100>
+  
+		  {% if recent_reviews %}
+  
+			  <div class="card-deck">
+  
+			  {% for review in recent_reviews %}
+			  <div class="card">
+				  <div class="card-body">
+
+				{% if review.rating == 5%}
+				<img class="card-img-top" src="{% static '/images/review/5star.png' %}" alt="Card image cap" width= 25%>
+
+				{% elif review.rating == 4 %}
+				<img class="card-img-top" src="{% static '/images/review/4star.png' %}" alt="Card image cap" width= 25%>
+
+				{% elif review.rating == 3 %}
+				<img class="card-img-top" src="{% static '/images/review/3star.png' %}" alt="Card image cap" width= 25%>
+
+				{% elif review.rating == 2 %}
+				<img class="card-img-top" src="{% static '/images/review/2star.png' %}" alt="Card image cap" width= 25%>
+
+				{% else %}
+				<img class="card-img-top" src="{% static '/images/review/1star.png' %}" alt="Card image cap" width= 25%>
+
+				{% endif %}
+				  </br>
+				</br>
+
+
+					<h3 class="text-center">{{ review.model }}</h3>
+					<h2 class="blue-text text-center">{{ review.title }}</h2>
+
+					  <p class="card-text text-center">
+						  {{ review.comments }}
+					  </p>
+				  </div>
+
+
+				  <div class=
+				   "card-footer text-center
+				  {% if review.rating >= 4 %}
+					  green-text
+					  img src={% static '/images/review/5star.png' %}
+
+				  {% elif review.rating == 3 %}
+					  orange-text
+				  {% else %}
+					  red-text
+				  {% endif %}
+				  ">
+					  RATING: {{ review.rating }}/5
+				  </div>
+			  </div>
+			  {% endfor %}
+  
+			  </div>
+	  {% endif %}
+		  <p>
+  
+  
+	  <script type="text/javascript">
+		  $(".chosen").chosen();
+	  </script>
+
 
 	
 </div>
 
-    <h2 class="text-center blue-text">Recent reviews</h2>
 
-    <div>
-
-		<p style= font-weight:100>
-
-        {% if recent_reviews %}
-
-            <div class="card-deck">
-
-            {% for review in recent_reviews %}
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title blue-text">{{ review.title }} - {{ review.model }}</h5>
-                    <p class="card-text">
-                        {{ review.comments }}
-                    </p>
-                </div>
-                <div class="card-footer text-center
-                {% if review.rating >= 4 %}
-                    green-text
-                {% elif review.rating == 3 %}
-                    orange-text
-                {% else %}
-                    red-text
-                {% endif %}
-                ">
-                    {{ review.rating }}/5
-                </div>
-            </div>
-            {% endfor %}
-
-            </div>
-    {% endif %}
-		<p>
-
-
-    <script type="text/javascript">
-        $(".chosen").chosen();
-    </script>
 
 {% endblock body_block %}
 

@@ -142,6 +142,7 @@
 
           </div>
 
+
           
           <h2> BUY NOW! </h2>
           <div class="row">
@@ -166,9 +167,34 @@
             <div class="card-deck">
             
             {% for review in reviews %}
+            
             <div class="card">
+                
+                    
+  
+                  {% if review.rating == 5%}
+                  <img class="card-img-top" src="{% static '/images/review/5star.png' %}" alt="Card image cap" width= 25%>
+  
+                  {% elif review.rating == 4 %}
+                  <img class="card-img-top" src="{% static '/images/review/4star.png' %}" alt="Card image cap" width= 25%>
+  
+                  {% elif review.rating == 3 %}
+                  <img class="card-img-top" src="{% static '/images/review/3star.png' %}" alt="Card image cap" width= 25%>
+  
+                  {% elif review.rating == 2 %}
+                  <img class="card-img-top" src="{% static '/images/review/2star.png' %}" alt="Card image cap" width= 25%>
+  
+                  {% else %}
+                  <img class="card-img-top" src="{% static '/images/review/1star.png' %}" alt="Card image cap" width= 25%>
+  
+                  {% endif %}
+        
+
+      
+      
+
                 <div class="card-body">
-                    <h5 class="card-title blue-text">{{ review.title }} - {{ review.model }}</h5>
+                    <h3 class="card-title centre-text">{{ review.title }}</h5>
                     <p class="card-text">
                         {{ review.comments }}
                     </p>
@@ -203,17 +229,19 @@
         </body>
     
         <br>
-
+        
         <br>
 
 	</div>
 
-
+    &ensp;
 
 </div>
 
+</br>
+
 
 {% endblock body_block %}
-
+</br>
 
 </html>
