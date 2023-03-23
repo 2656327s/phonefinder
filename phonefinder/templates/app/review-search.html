@@ -57,7 +57,8 @@
         {% for review in all_reviews %}
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title blue-text">{{ review.title }} - {{ review.model }}</h5>
+                <h3 >{{ review.model }}</h3>
+                <h5 class="card-title blue-text">{{ review.title }} </h5>
                 <p class="card-text">
                     {{ review.comments }}
                 </p>

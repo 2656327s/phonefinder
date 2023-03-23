@@ -65,12 +65,50 @@
      
             }
             .row {
-            float: left;
+                float: left;
             }
 
             .column {
             
-            padding: 15px;
+                padding: 5px;
+            }
+
+            .card-deck {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+
+            .blue-text {
+                color: #2aa9e1;
+            }
+
+            .green-text {
+                color: #00D100;
+            }
+
+            .orange-text {
+                color: #FFA500;
+            }
+
+            .red-text {
+                color: #FF0000;
+            }
+
+            .card {
+                max-width: 250px;
+                margin: 0 auto;
+            }
+
+            .card-body {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .card-footer {
+                margin-top: auto;
+                text-align: center;
             }
 
           </style>
@@ -103,6 +141,7 @@
             </div>
 
           </div>
+
           
           <h2> BUY NOW! </h2>
           <div class="row">
@@ -115,6 +154,45 @@
             <div class="column">
                 <p><a href="https://www.johnlewis.com/search?search-term={{ name }}"><img src="{% static '/images/partners/john-lewis.png' %}" style="width:50px;height:50px;"></a></p>
             </div>
+
+            <div class="container">
+
+            <h2> REVIEWS </h2>
+
+            </div>
+
+            {% if reviews %}
+
+            <div class="card-deck">
+            
+            {% for review in reviews %}
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title blue-text">{{ review.title }} - {{ review.model }}</h5>
+                    <p class="card-text">
+                        {{ review.comments }}
+                    </p>
+                </div>
+                <div class="card-footer text-center
+                {% if review.rating >= 4 %}
+                    green-text
+                {% elif review.rating == 3 %}
+                    orange-text
+                {% else %}
+                    red-text
+                {% endif %}
+                ">
+                    {{ review.rating }}/5
+                </div>
+            </div>
+            {% endfor %}
+
+            </div>
+              {% else %}
+                  <h2 class="text-center">No reviews yet. Be the first - <a class="btn btn-primary center" href="{% url 'app:review' %}" role="button">Leave a review</a></h2>
+              {% endif %}
+
+          </div>
             
     
           <div class="p-5">

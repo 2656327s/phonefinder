@@ -16,6 +16,18 @@
             color: #2aa9e1;
         }
 
+        .green-text {
+            color: #00D100;
+        }
+
+        .orange-text {
+            color: #FFA500;
+        }
+
+        .red-text {
+            color: #FF0000;
+        }
+
         select.chosen {
             padding: 5px;
             margin: 5px 0;
@@ -119,7 +131,15 @@
                         {{ review.comments }}
                     </p>
                 </div>
-                <div class="card-footer text-center">
+                <div class="card-footer text-center
+                {% if review.rating >= 4 %}
+                    green-text
+                {% elif review.rating == 3 %}
+                    orange-text
+                {% else %}
+                    red-text
+                {% endif %}
+                ">
                     {{ review.rating }}/5
                 </div>
             </div>
