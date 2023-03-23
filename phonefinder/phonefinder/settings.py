@@ -28,7 +28,7 @@ SECRET_KEY = '-p!vi$p8kwg89uvcxo$+oicpxq*l^2*_+$)mt&mqfyj@8$p+8b'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['2656327s.pythonanywhere.com', '127.0.0.1']
 
 
 # Application definition
@@ -59,7 +59,7 @@ ROOT_URLCONF = 'phonefinder.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [TEMPLATE_DIR, ],  
+        'DIRS': [TEMPLATE_DIR, ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
