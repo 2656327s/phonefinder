@@ -228,12 +228,11 @@
 		const button = document.getElementById("submitBtn");
 		  
 		button.addEventListener("click", function(e) {
-		  e.preventDefault(); // prevent default form submission behavior
-		  const formData = new FormData(form); // get the form data
+		  e.preventDefault(); 
+		  const formData = new FormData(form); 
 		  
-		  const data = Object.fromEntries(formData.entries()); // convert form data to object
-		  const url = "/phonefinder/database/"; // replace with your desired destination URL
-		  // make an HTTP request with the form data
+		  const data = Object.fromEntries(formData.entries()); 
+		  const url = "/phonefinder/database/"; 
 		  console.log(JSON.stringify(data),"hi")
 		  fetch(url, {
 			method: "POST",
@@ -248,12 +247,12 @@
 			console.log(data)
 			const phones = data;
 			const phonesContainer = document.getElementById('phone-display');
-			phonesContainer.innerHTML = ''; // clear the container first
+			phonesContainer.innerHTML = ''; 
 			console.log(Array.isArray(phones.phones))
 			
 
 			
-			// loop through the phones array and create a new section for each phone
+			
 			if (Array.isArray(phones.phones)) {
 				
 				phones.phones.forEach(phone => {
@@ -270,7 +269,7 @@
 
 						<p>Rlease Date: ${phone.releaseYear}</p>
 						<p>Storage: ${parseInt(phone.storage)}GB</p>
-						<p>Resolution: ${phone.resolution}</p>
+						<p>Resolution: ${phone.resolution}px</p>
 						<p>RAM: ${parseInt(phone.ram)}GB</p>
 						</br>
 						<a class="btn btn-info" href=/phonefinder/all-phones/individual/${phone.brand.toLowerCase()}/${phone.name.toLowerCase().replace(/\s+/g, '-')} role="button">Learn More</a>
@@ -292,7 +291,7 @@
 			const cookies = document.cookie.split(';');
 			for (let i = 0; i < cookies.length; i++) {
 			  const cookie = cookies[i].trim();
-			  // Does this cookie string begin with the name we want?
+			
 			  if (cookie.substring(0, name.length + 1) === (name + '=')) {
 				cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
 				break;

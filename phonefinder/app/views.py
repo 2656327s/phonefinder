@@ -152,7 +152,6 @@ def database(request):
         phones = filterPhones(phone_json)
         print(phones)
 
-        # now we filter phones and render the database page
         context = {'phones': phones}
         return JsonResponse(context, safe=False)
     else:
@@ -165,14 +164,13 @@ def find(request):
     with open(json_file_path) as json_file:
         phones = json.load(json_file)
 
-        # Create an empty dictionary to hold the possible values for each attribute
+        
         brands = []
         widths = []
         heights = []
         storages = []
         rams = []
 
-        # Loop through each phone and add its attributes to the corresponding list if they're unique
         for phone in phones:
             if phone['brand'] not in brands:
                 brands.append(phone['brand'])
@@ -189,7 +187,6 @@ def find(request):
             if ram not in rams:
                 rams.append(ram)
 
-        # Construct the context dictionary with the lists of unique attribute values
         context_dict = {
             'brands': brands,
             'widths': sorted(widths),
@@ -199,7 +196,6 @@ def find(request):
         }
         json_file.close()
 
-    # Render the template with the context dictionary
     return render(request, 'app/find.html', context_dict)
 
 
