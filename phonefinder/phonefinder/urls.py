@@ -25,5 +25,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('phonefinder/', include('app.urls')),
     #   The above maps any URLs starting with phonefinder/ to be handled by apps.
-    path('admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
