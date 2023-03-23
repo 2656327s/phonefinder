@@ -209,20 +209,21 @@
                 {% endif %}
                 ">
                     {{ review.rating }}/5
+
+                    
                 </div>
+
+
             </div>
             {% endfor %}
 
-            </div>
-              {% else %}
-                  <h2 class="text-center">No reviews yet. Be the first - <a class="btn btn-primary center" href="{% url 'app:review' %}" role="button">Leave a review</a></h2>
+            <div class="p-5">
+                {% else %}
+                  <h5 class="text-center">No reviews yet. Be the first - <a class="btn btn-primary center" href="{% url 'app:review' %}" role="button">Leave a review</a></h5>
               {% endif %}
-
           </div>
-            
-    
-          <div class="p-5">
-
+   
+        
         </div>
 
     

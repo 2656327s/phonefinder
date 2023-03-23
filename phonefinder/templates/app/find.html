@@ -261,20 +261,27 @@
 					
 					phoneSection.innerHTML = `
 
-					
+						</br>
 						<h2>${phone.brand} ${phone.name}</h2>
-						<img src="${phone.picture}" alt="${phone.brand} ${phone.name} Image">
+						</br>
 
-						<p>Rlease Date ${phone.releaseYear}</p>
+						<img src="${phone.picture}" alt="${phone.brand} ${phone.name} Image">
+						</br></br>
+
+						<p>Rlease Date: ${phone.releaseYear}</p>
 						<p>Storage: ${parseInt(phone.storage)}GB</p>
 						<p>Resolution: ${phone.resolution}</p>
 						<p>RAM: ${parseInt(phone.ram)}GB</p>
-						<a href= /phonefinder/all-phones/individual/${phone.brand.toLowerCase()}/${phone.name.toLowerCase().replace(/\s+/g, '-')} class=button>Learn More</a>
+						</br>
+						<a class="btn btn-info" href=/phonefinder/all-phones/individual/${phone.brand.toLowerCase()}/${phone.name.toLowerCase().replace(/\s+/g, '-')} role="button">Learn More</a>
+						</br>
+					</br>
 
 
 					`;
 					phonesContainer.appendChild(phoneSection);
 				});
+			
 			}
 		  });
 		});
