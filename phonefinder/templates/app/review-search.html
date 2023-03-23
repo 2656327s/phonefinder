@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+{% extends 'app/base.html' %}
+{% load staticfiles %}
+<html>
+
+{% block title_block %}
+	Leave a review
+{% endblock %}
+
+{% block body_block %}
+
+
+<!-- Jumbotron -->
+    <style>
+        .blue-text {
+            color: #2aa9e1;
+        }
+
+        select.chosen {
+            padding: 5px;
+            margin: 5px 0;
+            width: 100%;
+        }
+
+    </style>
+
+<header>
+	
+	<br>
+	<br>
+	
+	<div class="p-5 text bg-info">
+        <h1><strong style="color:white"> LEAVE A REVIEW </strong></h1>
+	</div>
+</header>
+
+
+<div class="container-fluid">
+<br></br>
+
+
+
+<!------------Welcome Section------------>
+
+<div class="p-5">
+
+
+<body>
+	<strong><h1> REVIEWS </h1></strong>
+
+  <p style= font-weight:100>
+
+    {% if all_reviews %}
+
+        <div class="card-deck">
+
+        {% for review in all_reviews %}
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title blue-text">{{ review.title }} - {{ review.model }}</h5>
+                <p class="card-text">
+                    {{ review.comments }}
+                </p>
+            </div>
+            <div class="card-footer text-center">
+                {{ review.rating }}/5
+            </div>
+        </div>
+        {% endfor %}
+
+        </div>
+{% endif %}
+<p>
+
+
+<script type="text/javascript">
+    $(".chosen").chosen();
+</script>
+
+	<div>
+
+		
+
+
+	
+</div>
+
+    
+
+
+
+{% endblock body_block %}
+
+
+</html>

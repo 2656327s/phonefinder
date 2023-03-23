@@ -11,12 +11,14 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('database/', views.database, name='database'),
     path('find/', views.find, name='find'),
-    path('individual/<slug:manufacturer_slug>/<slug:model_slug>', views.show_individual,
+    path('all-phones/individual/<slug:manufacturer_slug>/<slug:model_slug>', views.show_individual,
          name='show_individual'),
     path('favourites/', views.favourites, name='favourites'),
     path('favorites/add/<int:phone_id>/',
          views.add_favourite, name='add_favourite'),
-    path('database/', views.database, name='database'),
+    path('all-phones/', views.database, name='database'),
     path('review/', views.review, name='review'),
+    path('review/search/', views.search, name='search'),
+
     path('submit_review/', views.submit_review, name='submit_review'),
 ]

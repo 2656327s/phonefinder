@@ -206,13 +206,18 @@ def find(request):
 @login_required
 def show_individual(request, manufacturer_slug, model_slug):
     phone = None
+    # match manufacturer slug and model slug with a phone in the database
     for p in phones:
         if slugify(p['brand']) == manufacturer_slug and slugify(p['name']) == model_slug:
             phone = p
             phone['storage'] = round(float(phone['storage']), 2)
             break
+    # if a match is found, pass the phone dictionary to the context and render the individual template
     if phone:
+        # filter all reviews by model name, grab 5 most recent and add it to the context_dict
+        reviews = Review.objects.filter(model=phone['name']).order_by('-pub_date')[:5]
         context_dict = phone
+        context_dict['reviews'] = reviews
         return render(request, 'app/individual.html', context=context_dict)
     else:
         return HttpResponse("Phone doesn't exist")
@@ -226,7 +231,9 @@ def get_phone(phone_id):
 
 @login_required
 def favourites(request):
+    # find the Favourites belonging to user
     favourite_list = Favourite.objects.filter(user=request.user)
+    # find the data of each phone in user's favourites
     favourite_phones = [get_phone(favourite.phone_id)
                         for favourite in favourite_list]
     context = {'favourites': favourite_phones}
@@ -242,3 +249,14 @@ def review(request):
     context_dict['recent_reviews'] = recent_reviews
     context_dict['phones'] = phones
     return render(request, 'app/review.html', context=context_dict)
+
+
+@login_required
+def search(request):
+    # get 5 most recent reviews and pass into context
+    all_reviews = Review.objects.order_by('-pub_date')
+    context_dict = {}
+    context_dict['all_reviews'] = all_reviews
+    context_dict['phones'] = phones
+    return render(request, 'app/review-search.html', context=context_dict)
+

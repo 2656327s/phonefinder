@@ -250,18 +250,27 @@
 			const phonesContainer = document.getElementById('phone-display');
 			phonesContainer.innerHTML = ''; // clear the container first
 			console.log(Array.isArray(phones.phones))
+			
+
+			
 			// loop through the phones array and create a new section for each phone
 			if (Array.isArray(phones.phones)) {
+				
 				phones.phones.forEach(phone => {
 					const phoneSection = document.createElement('section');
+					
 					phoneSection.innerHTML = `
+
+					
 						<h2>${phone.brand} ${phone.name}</h2>
+						<img src="${phone.picture}" alt="${phone.brand} ${phone.name} Image">
+
 						<p>Rlease Date ${phone.releaseYear}</p>
 						<p>Storage: ${parseInt(phone.storage)}GB</p>
 						<p>Resolution: ${phone.resolution}</p>
 						<p>RAM: ${parseInt(phone.ram)}GB</p>
+						<a href= /phonefinder/all-phones/individual/${phone.brand.toLowerCase()}/${phone.name.toLowerCase().replace(/\s+/g, '-')} class=button>Learn More</a>
 
-						<img src="${phone.picture}" alt="${phone.brand} ${phone.name} Image">
 
 					`;
 					phonesContainer.appendChild(phoneSection);
@@ -285,6 +294,8 @@
 		  }
 		  return cookieValue;
 		}
+
+		
 	  </script>
 	
 
