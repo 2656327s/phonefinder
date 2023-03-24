@@ -63,6 +63,15 @@ Homepage
         </div>
      </div>
 
+     <div class="card">
+      <img class="card-img-top" src="{% static '/images/homepage/review.png' %}" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Leave a Review</h5>
+        <p class="card-text">Help inform our users!</p>
+        <a class="btn btn-info" href="{% url 'app:review' %}" role="button">Leave your thoughts!</a>
+      </div>
+    </div>
+
       <div class="card">
         <img class="card-img-top" src="{% static '/images/homepage/phone.png' %}" alt="Card image cap">
         <div class="card-body">
@@ -71,18 +80,6 @@ Homepage
           <a class="btn btn-info" href="{% url 'app:database' %}" role="button"> Learn more!</a>
 
         </div>
-      </div>
-
-      <div class="card">
-        <img class="card-img-top" src="{% static '/images/homepage/review.png' %}" alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title">Leave a Review</h5>
-          <p class="card-text">Help inform our users!</p>
-          <a class="btn btn-info" href="{% url 'app:review' %}" role="button">Leave your thoughts!</a>
-        
-
-        </div>
-    
       </div>
     
     
